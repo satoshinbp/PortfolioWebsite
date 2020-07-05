@@ -12,6 +12,12 @@ export default function About() {
         <Typography variant="h4" component="h1" gutterBottom>
           About Me
         </Typography>
+        <Typography variant="body1" color="textSecondary">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor nec diam ac tincidunt.
+          Vivamus pellentesque mattis consequat. Integer pellentesque ipsum eget elit finibus tincidunt.
+          Vestibulum at odio facilisis, viverra nunc quis, tristique nisi. Interdum et malesuada fames ac
+          ante ipsum primis in faucibus. Mauris tortor lorem, sodales at felis.
+        </Typography>
       </Box>
     </Container>
   )

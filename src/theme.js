@@ -1,36 +1,38 @@
-import { createMuiTheme } from '@material-ui/core/styles'
-import { red } from '@material-ui/core/colors'
+import { createMuiTheme, darken } from '@material-ui/core/styles'
 
-// Create a theme instance.
+const mainBlue = '#23468c'
+const accentBlue = '#30a7bf'
+const buttonUnfocusedGrey = 'rgba(0, 0, 0, 0.54)' // same as default of palette.text.secondary
+
 export default createMuiTheme({
   palette: {
     primary: {
-      main: '#23468c',
+      main: mainBlue,
     },
     secondary: {
-      main: '#30a7bf',
-    },
-    error: {
-      main: red.A400,
+      main: accentBlue,
     },
     background: {
-      default: '#fff',
-    },
+      default: 'white'
+    }
   },
   typography: {
-    fontFamily: 'Rubik, sans-serif',
-    tab: {
-      fontSize: '1rem',
-      fontWeight: 500,
+    fontFamily: "'Rubik', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontSize: 18,
+    button: {
       textTransform: 'none',
-      transition: 'opacity 0.1s ease-out',
-      '&:hover': {
-        opacity: 1,
-        textDecoration: 'none'
-      },
-      '&:active': {
-        animation: 'none',
+    },
+  },
+  overrides: {
+    MuiButton: {
+      textSecondary: {
+        color: buttonUnfocusedGrey,
+        transition: 'color 0.1s ease-out',
+        '&:hover': {
+          backgroundColor: 'white',
+          color: mainBlue,
+        },
       },
     },
-  }
+  },
 })
