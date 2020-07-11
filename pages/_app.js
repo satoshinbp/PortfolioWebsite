@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -9,7 +9,6 @@ import Footer from '../src/Footer'
 
 export default function MyApp(props) {
   const { Component, pageProps } = props
-  const [value, setValue] = useState(undefined)
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -28,7 +27,7 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Header value={value} setValue={setValue} />
+        <Header />
         <Component {...pageProps} />
         <Footer />
       </ThemeProvider>

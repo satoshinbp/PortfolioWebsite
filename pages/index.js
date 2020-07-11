@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from '../src/Link'
+
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Grid from '@material-ui/core/Grid'
@@ -10,6 +11,12 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
+import Hidden from '@material-ui/core/Hidden'
+import Divider from '@material-ui/core/Divider'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+
 import GitHubIcon from '@material-ui/icons/GitHub'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import MailIcon from '@material-ui/icons/Mail'
@@ -17,27 +24,45 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import InstagramIcon from '@material-ui/icons/Instagram'
-import Hidden from '@material-ui/core/Hidden'
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    paddingTop: '3em',
-    paddingBottom: '3em',
-    paddingLeft: '3em',
-    paddingRight: '3em',
-    borderBottom: `1px solid ${theme.palette.primary.main}`,
+  mainContainer: {
+    padding: '3em',
     [theme.breakpoints.down('sm')]: {
-      paddingTop: '2em',
-      paddingBottom: '2em',
-      paddingLeft: '2em',
-      paddingRight: '2em',
+      padding: '2em',
     },
     [theme.breakpoints.down('xs')]: {
-      paddingTop: '1.5em',
-      paddingBottom: '1.5em',
-      paddingLeft: '1.5em',
-      paddingRight: '1.5em',
+      padding: '1.5em',
     },
+  },
+  sectionContainer: {
+    paddingTop: 'calc(3em + 64px)',
+    marginTop: 'calc(-3em - 64px)',
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: 'calc(2em + 64px)',
+      marginTop: 'calc(-2em - 64px)',
+    },
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: 'calc(1.5em + 56px)',
+      marginTop: 'calc(-1.5em - 56px)',
+    },
+  },
+  divider: {
+    marginTop: '2em',
+    marginBottom: '2em',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '1.5em',
+      marginBottom: '1.5em',
+    },
+    [theme.breakpoints.down('xs')]: {
+      marginTop: '1em',
+      marginBottom: '1em',
+    },
+  },
+  btn: {
+    '&:hover': {
+      textDecoration: 'none'
+    }
   },
   root: {
     height: 500,
@@ -57,6 +82,16 @@ export default () => {
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'))
   const matchesSM = useMediaQuery(theme.breakpoints.down('sm'))
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
+
+  const techs = [
+    'HTML & (S)CSS',
+    'JavaScript (ES6+)',
+    'React',
+    'Next.js',
+    'Node.js',
+    'Material-UI',
+    'Firebase',
+  ]
 
   const works = [
     {
@@ -148,7 +183,7 @@ export default () => {
   ]
 
   return (
-    <React.Fragment>
+    <Grid container direction='column' className={classes.mainContainer}>
       <Head>
         <title key="title">Shinya Sato</title>
         {/* <meta
@@ -163,10 +198,11 @@ export default () => {
       </Head>
 
       <Grid
+        item
         container
-        direction={matchesSM ? 'column' : 'row'}
-        alignItems={matchesSM ? 'center' : undefined}
-        className={classes.container}
+        direction="row"
+        id="about"
+        className={classes.sectionContainer}
       >
         <Hidden smDown>
           <Grid item md={4}>
@@ -184,23 +220,62 @@ export default () => {
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body1" color="textSecondary">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porttitor nec diam ac tincidunt.
-              Vivamus pellentesque mattis consequat. Integer pellentesque ipsum eget elit finibus tincidunt.
-              Vestibulum at odio facilisis, viverra nunc quis, tristique nisi. Interdum et malesuada fames ac
-              ante ipsum primis in faucibus. Mauris tortor lorem, sodales at felis.
+            <Typography variant="body1" color="textSecondary" gutterBottom>
+              Hello! I'm Shinya, a software engineer based in Vancouver.
             </Typography>
+            <Typography variant="body1" color="textSecondary" gutterBottom>
+              I enjoy creating things that live on the internet, whether that be websites, applications, or anything in between.
+              My goal is to always build products that provide pixel-perfect, performant experiences.
+            </Typography>
+            <Typography variant="body1" color="textSecondary" gutterBottom>
+              Shortly after working in an engineering company as a mechanical engineer for 4 years, I enrolled Langara College
+              and took web & mobile app development program to dive into new field.
+            </Typography>
+            <Typography variant="body1" color="textSecondary" gutterBottom>
+              Here are a few technologies I've learned:
+            </Typography>
+            <List dense style={{ paddingRight: '8em' }}>
+              <Grid container direction='row'>
+                {techs.map((tech, i) => (
+                  <Grid item key={i} sm={6} xs={12}>
+                    <ListItem>
+                      <ListItemText
+                        primary={tech}
+                        primaryTypographyProps={{ color: 'secondary' }}
+                      />
+                    </ListItem>
+                  </Grid>
+                ))}
+              </Grid>
+            </List>
           </Grid>
-          <Grid item>
-            <Button
-              component={Link}
-              href="/about"
-              variant="contained"
-              color="primary"
-              disableRipple
-            >
-              About Me
+          <Grid item container direction='row'>
+            <Grid item style={{ marginRight: '2em' }}>
+              <Button
+                component={Link}
+                href="/about"
+                variant="contained"
+                color="primary"
+                disableRipple
+                size="large"
+                className={classes.btn}
+              >
+                Resume
             </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                component={Link}
+                href="#contact"
+                variant="contained"
+                color="primary"
+                disableRipple
+                size="large"
+                className={classes.btn}
+              >
+                Contact Me
+            </Button>
+            </Grid>
           </Grid>
         </Grid>
         <Hidden mdUp>
@@ -210,7 +285,9 @@ export default () => {
         </Hidden>
       </Grid>
 
-      <Grid container direction="column" className={classes.container}>
+      <Divider className={classes.divider} />
+
+      <Grid item container direction="column" id="works" className={classes.sectionContainer}>
         <Grid item style={{ marginBottom: '2em' }}>
           <Typography variant={matchesXS ? 'h4' : matchesSM ? 'h3' : 'h2'}>Works</Typography>
         </Grid>
@@ -256,18 +333,20 @@ export default () => {
         </Grid>
       </Grid>
 
-      <Grid container direction="column" className={classes.container}>
+      <Divider className={classes.divider} />
+
+      <Grid item container direction="column" id="contact" className={classes.sectionContainer}>
         <Grid item style={{ marginBottom: '2em' }}>
           <Typography variant={matchesXS ? 'h4' : 'h2'}>Contact Me</Typography>
         </Grid>
         {contacts.map((contact, i) => (
-          <Grid item key={i} component={'a'} href={contact.link} className={classes.contact}>
-            <Button size="small" color="secondary" disableRipple>
+          <Grid item key={i} className={classes.contact}>
+            <Button size="small" color="secondary" disableRipple component={'a'} href={contact.link}>
               {contact.icon}&nbsp;&nbsp;&nbsp;{contact.id}
             </Button>
           </Grid>
         ))}
       </Grid>
-    </React.Fragment>
+    </Grid>
   )
 }

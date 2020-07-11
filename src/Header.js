@@ -76,11 +76,6 @@ const useStyles = makeStyles(theme => ({
       opacity: 1,
     },
   },
-  drawerItemSelected: {
-    '& .MuiListItemText-root': {
-      opacity: 1,
-    },
-  },
 }))
 
 export default props => {
@@ -89,35 +84,11 @@ export default props => {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const [openDrawer, setOpenDrawer] = useState(false)
 
-  const handleClick = () => {
-    props.setValue(undefined)
-  }
-
-  const handleChange = (e, newValue) => {
-    props.setValue(newValue)
-  }
-
   const routes = [
-    { id: 0, name: 'About Me', link: '/about' },
-    { id: 1, name: 'Works', link: '/works' },
-    { id: 2, name: 'Contact Me', link: '/contact' }
+    { id: 0, name: 'About Me', link: '#about' },
+    { id: 1, name: 'Works', link: '#works' },
+    { id: 2, name: 'Contact Me', link: '#contact' }
   ]
-
-  useEffect(() => {
-    routes.forEach(route => {
-      switch (window.location.pathname) {
-        case `${route.link}`:
-          if (props.value !== route.id) {
-            props.setValue(route.id)
-          }
-          break
-        case '/':
-          props.setValue(undefined)
-        default:
-          break
-      }
-    })
-  }, [props.value, routes])
 
   return (
     <React.Fragment>
@@ -130,25 +101,22 @@ export default props => {
               component={Link}
               href="/"
               className={classes.logoText}
-              onClick={handleClick}
             >
               Shinya Sato
             </Typography>
 
             <Hidden xsDown>
               <Tabs
-                value={props.value}
-                onChange={handleChange}
                 className={classes.tabContainer}
               >
-                {routes.map((route, index) => (
+                {routes.map((route, i) => (
                   <Tab
-                    key={index}
-                    className={classes.tab}
-                    component={Link}
+                    key={i}
                     href={route.link}
                     label={route.name}
                     disableRipple
+                    className={classes.tab}
+                    classes={{selected: {opacity: 0.7}}}
                   />
                 ))}
               </Tabs>
@@ -164,24 +132,16 @@ export default props => {
                 onOpen={() => setOpenDrawer(true)}
               >
                 <Toolbar />
-                {routes.map((route, index) => (
+                {routes.map((route, i) => (
                   <ListItem
-                    key={index}
+                    key={i}
                     divider
                     button
-                    component={Link}
+                    component={'a'}
                     href={route.link}
-                    onClick={() => {
-                      setOpenDrawer(false)
-                      props.setValue(route.id)
-                    }}
-                    classes={{ selected: classes.drawerItemSelected }}
-                    selected={props.value === route.id}
+                    onClick={() => setOpenDrawer(false)}
                   >
-                    <ListItemText
-                      className={classes.drawerItemText}
-                      disableTypography
-                    >
+                    <ListItemText className={classes.drawerItemText} disableTypography>
                       {route.name}
                     </ListItemText>
                   </ListItem>
